@@ -2,7 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="appColor">#4A6572</color>
-    <color name="appColorOpacity">#884A6572</color>
-    <color name="layoutColor">#FFFFFF</color>
+    <color name="appColor">#ff9a3d</color>
+    <color name="appColorOpacity">#88ff9a3d</color>
+    <color name="layoutColor">#000000</color>
 </resources>

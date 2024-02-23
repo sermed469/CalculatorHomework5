@@ -27,44 +27,53 @@ class MainActivity : AppCompatActivity() {
         numberButtonGroup.add(binding.button7)
         numberButtonGroup.add(binding.button8)
         numberButtonGroup.add(binding.button9)
-//        numberButtonGroup.add(binding.buttonDouble)
-//        numberButtonGroup.add(binding.buttonSum)
 
-        for(bt in numberButtonGroup){
+        for(bt in numberButtonGroup){ //When button which represents digit is clicked, digit is displayed
             bt.setOnClickListener {
                 binding.textViewResult.append(bt.text)
             }
         }
 
-        binding.buttonDouble.setOnClickListener {
-            if(flag){
-                flag = false
-                binding.textViewResult.append(binding.buttonDouble.text)
+        binding.buttonDouble.setOnClickListener {//When "." button is clicked, it represents decimal point
+            if(flag && binding.textViewResult.text.toString() != ""){
+                if(binding.textViewResult.text.toString().get(binding.textViewResult.text.length-1) != '+'){
+                    binding.textViewResult.append(binding.buttonDouble.text)
+                    flag = false
+                }
             }
         }
 
-        binding.buttonSum.setOnClickListener {
-            binding.textViewResult.append(binding.buttonSum.text)
-            flag = true
+        binding.buttonSum.setOnClickListener {//When summation button is clicked
+            if(binding.textViewResult.text.toString() != ""){
+                if(binding.textViewResult.text.toString().get(binding.textViewResult.text.length-1) != '+'){
+                    binding.textViewResult.append(binding.buttonSum.text)
+                    flag = true
+                }
+            }
         }
 
-        binding.buttonDeleteAll.setOnClickListener {
+        binding.buttonDeleteAll.setOnClickListener {//When delete button is clicked
             binding.textViewResult.setText("")
         }
 
-        binding.buttonResult.setOnClickListener {
-            if(binding.textViewResult.text != ""){
+        binding.buttonResult.setOnClickListener {//When "=" button is clicked
+            if(binding.textViewResult.text.toString() != ""){
                 val operationStr = binding.textViewResult.text.toString()
-
-                val numbers = operationStr.split('+')
-
-                var sum = 0.0
-                for(num in numbers){
-                    sum += num.toDouble()
-                }
-
+                val sum = calculateSum(operationStr)
                 binding.textViewResult.setText("${sum}")
+                flag = false
             }
         }
+    }
+
+    fun calculateSum(resultText:String):Double{ //Function which calculates summing all numbers in text in app
+        val numbers = resultText.split('+')
+
+        var sum = 0.0
+        for(num in numbers){
+            sum += num.toDouble()
+        }
+
+        return sum
     }
 }
